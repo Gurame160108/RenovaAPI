@@ -1,8 +1,18 @@
 import mysql from "mysql2";
 
-export const db = mysql.createConnection({
+const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "",       // isi sesuai MySQL kamu (biasanya kosong di XAMPP)
-  database: "renova" // ubah sesuai nama database kamu
+  password: "",
+  database: "renova",
 });
+
+db.connect((err) => {
+  if (err) {
+    console.error("Gagal koneksi ke database:", err.message);
+  } else {
+    console.log("Berhasil koneksi ke database MySQL");
+  }
+});
+
+export default db;

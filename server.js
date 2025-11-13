@@ -1,6 +1,9 @@
 import express from "express";
 import cors from "cors";
-import { db } from "./config/database.js";
+import db from "./config/database.js";
+import userRoutes from "./router/userRoute.js";
+import adminRoutes from "./router/adminRoute.js";
+import proyekRoute from "./router/proyekRoute.js";
 
 const app = express();
 app.use(cors());
@@ -19,6 +22,11 @@ db.connect(err => {
 app.get("/", (req, res) => {
   res.send("Backend Express.js berjalan 🚀");
 });
+
+// ✅ Daftarkan route
+app.use("/api/users", userRoutes);
+app.use("/api/admins", adminRoutes); // 🔥 Tambahan
+app.use("/api/projects", proyekRoute);
 
 // Jalankan server
 app.listen(5000, () => {
