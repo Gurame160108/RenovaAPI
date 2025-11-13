@@ -4,6 +4,7 @@ import db from "./config/database.js";
 import userRoutes from "./router/userRoute.js";
 import adminRoutes from "./router/adminRoute.js";
 import proyekRoute from "./router/proyekRoute.js";
+import janjiRoute from "./router/janjiRoute.js";
 
 const app = express();
 app.use(cors());
@@ -27,6 +28,7 @@ app.get("/", (req, res) => {
 app.use("/api/users", userRoutes);
 app.use("/api/admins", adminRoutes); // 🔥 Tambahan
 app.use("/api/projects", proyekRoute);
+app.use("/api/janji", janjiRoute);
 
 // Jalankan server
 app.listen(5000, () => {
