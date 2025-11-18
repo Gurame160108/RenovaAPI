@@ -5,8 +5,7 @@ const db = mysql.createConnection({
   user: "root",
   password: "",
   database: "renova",
-})
-.promise();
+});
 
 
 db.connect((err) => {
