@@ -7,6 +7,9 @@ import proyekRoute from "./router/proyekRoute.js";
 import janjiRoute from "./router/janjiRoute.js";
 import jadwalRoute from "./router/jadwalRoute.js";
 import arsitekRoute from "./router/arsitekRoute.js";
+import mandorRoute from "./router/mandorRoute.js";
+import laporanProjectRoute from "./router/laporanProjectRoute.js";
+import laporanDesignRoutes from "./router/laporanDesignRoute.js";
 
 const app = express();
 app.use(cors());
@@ -33,6 +36,9 @@ app.use("/api/projects", proyekRoute);
 app.use("/api/janji", janjiRoute);
 app.use("/api/jadwal", jadwalRoute);
 app.use("/api/arsitek", arsitekRoute);
+app.use("/mandor", mandorRoute );
+app.use("/laporan-project", laporanProjectRoute);
+app.use("/laporan-design", laporanDesignRoutes);
 
 // Jalankan server
 app.listen(5000, () => {
