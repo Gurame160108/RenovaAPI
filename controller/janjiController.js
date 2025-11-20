@@ -68,3 +68,65 @@ export const getJanjiByUser = async (req, res) => {
     res.status(500).json({ message: "Terjadi kesalahan server" });
   }
 };
+
+// ✅ TAMBAHAN: Update Status Janji
+export const updateStatusJanji = async (req, res) => {
+  const { id_janji } = req.params;
+  const { status } = req.body;
+
+  if (!status) {
+    return res.status(400).json({ message: "Status wajib diisi" });
+  }
+
+  // Validasi status
+  const validStatus = ["Diterima", "Ditolak", "Selesai", "Pending", "Menunggu"];
+  if (!validStatus.includes(status)) {
+    return res.status(400).json({ 
+      message: "Status tidak valid. Gunakan: Diterima, Ditolak, Selesai, Pending, atau Menunggu" 
+    });
+  }
+
+  try {
+    const [result] = await db.query(
+      "UPDATE janji SET status = ? WHERE id_janji = ?",
+      [status, id_janji]
+    );
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: "Janji tidak ditemukan" });
+    }
+
+    res.status(200).json({
+      message: "Status janji berhasil diupdate",
+      id_janji,
+      status
+    });
+  } catch (error) {
+    console.error("Error updateStatusJanji:", error);
+    res.status(500).json({ message: "Terjadi kesalahan server" });
+  }
+};
+
+// ✅ TAMBAHAN: Delete Janji (opsional)
+export const deleteJanji = async (req, res) => {
+  const { id_janji } = req.params;
+
+  try {
+    const [result] = await db.query(
+      "DELETE FROM janji WHERE id_janji = ?",
+      [id_janji]
+    );
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: "Janji tidak ditemukan" });
+    }
+
+    res.status(200).json({
+      message: "Janji berhasil dihapus",
+      id_janji
+    });
+  } catch (error) {
+    console.error("Error deleteJanji:", error);
+    res.status(500).json({ message: "Terjadi kesalahan server" });
+  }
+};

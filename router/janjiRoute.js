@@ -1,19 +1,22 @@
+// router/janjiRoute.js
 import express from "express";
-import {
-  buatJanji,
-  getAllJanji,
+import { 
+  buatJanji, 
+  getAllJanji, 
   getJanjiByUser,
+  updateStatusJanji,  // ✅ TAMBAHAN
+  deleteJanji          // ✅ TAMBAHAN (opsional)
 } from "../controller/janjiController.js";
 
 const router = express.Router();
 
-// ✅ Endpoint untuk user membuat janji
-router.post("/", buatJanji);
-
-// ✅ Endpoint admin untuk melihat semua janji
-router.get("/", getAllJanji);
-
-// ✅ Endpoint user untuk melihat janji miliknya
+// Route yang sudah ada
+router.post("/buat", buatJanji);
+router.get("/all", getAllJanji);
 router.get("/user/:id_user", getJanjiByUser);
+
+// ✅ ROUTE BARU
+router.put("/:id_janji/status", updateStatusJanji);  // Update status
+router.delete("/:id_janji", deleteJanji);            // Delete (opsional)
 
 export default router;
